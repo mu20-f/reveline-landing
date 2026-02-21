@@ -17,7 +17,7 @@ type Social = {
 export default function RevelineLanding() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const [formStatus, setFormStatus] = useState("");
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
@@ -307,13 +307,65 @@ const IconComponent = social.icon;
                   </div>
               </div>
 <div className="bg-[#152446] p-10 rounded-3xl border border-[#33627F]/30">
-                <div className="space-y-4">
-                    <input className="w-full bg-[#132949] border border-[#33627F]/40 p-4 rounded outline-none focus:border-[#FECD49]" placeholder="NAME" />
-                    <input className="w-full bg-[#132949] border border-[#33627F]/40 p-4 rounded outline-none focus:border-[#FECD49]" placeholder="EMAIL" />
-                    <textarea className="w-full bg-[#132949] border border-[#33627F]/40 p-4 rounded outline-none focus:border-[#FECD49]" placeholder="MESSAGE" rows={4} />
-                    <button className="w-full py-4 bg-[#FECD49] text-[#152446] font-bold uppercase tracking-widest hover:bg-[#FFE672]">Submit Signal</button>
-                </div>
-            </div>
+  <form 
+    onSubmit={async (e) => {
+      e.preventDefault();
+      setFormStatus("SENDING...");
+      
+      const formData = new FormData(e.currentTarget);
+      // المفتاح الخاص بك
+      formData.append("access_key", "6aeaea8c-bcbe-4cb0-ac88-6eb02a193631");
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          setFormStatus("SIGNAL RECEIVED!");
+          (e.target as HTMLFormElement).reset(); // لتفريغ الحقول بعد الإرسال
+        } else {
+          setFormStatus("ERROR! TRY AGAIN.");
+        }
+      } catch (error) {
+        setFormStatus("CONNECTION ERROR.");
+      }
+    }} 
+    className="space-y-4"
+  >
+    <input 
+      name="name" 
+      required 
+      className="w-full bg-[#132949] border border-[#33627F]/40 p-4 rounded outline-none focus:border-[#FECD49]" 
+      placeholder="NAME" 
+    />
+    <input 
+      name="email" 
+      type="email" 
+      required 
+      className="w-full bg-[#132949] border border-[#33627F]/40 p-4 rounded outline-none focus:border-[#FECD49]" 
+      placeholder="EMAIL" 
+    />
+    <textarea 
+      name="message" 
+      required 
+      className="w-full bg-[#132949] border border-[#33627F]/40 p-4 rounded outline-none focus:border-[#FECD49]" 
+      placeholder="MESSAGE" 
+      rows={4} 
+    />
+    
+    <button 
+      type="submit" 
+      disabled={formStatus === "SENDING..."}
+      className="w-full py-4 bg-[#FECD49] text-[#152446] font-bold uppercase tracking-widest hover:bg-[#FFE672] disabled:opacity-50 transition-all"
+    >
+      {formStatus || "Submit Signal"}
+    </button>
+  </form>
+</div>
         </div>
         <div className="text-center pt-12 border-t border-[#33627F]/20 text-[#4A7687] font-bold text-xs tracking-[0.4em] uppercase">
             © {new Date().getFullYear()} Reveline Studio. All rights reserved.
