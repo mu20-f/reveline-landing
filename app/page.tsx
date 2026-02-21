@@ -10,7 +10,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 
 type Social = {
-  icon?: LucideIcon;
+  icon?: React.ElementType;
   img?: string;
   url: string;
 };
@@ -286,7 +286,7 @@ export default function RevelineLanding() {
                   
                   <div className="flex flex-wrap gap-4 mt-16">
 {socialIcons.map((social, i) => {
-  const Icon = social.icon;
+const IconComponent = social.icon;
   return (
     <motion.a 
       key={i} 
@@ -297,12 +297,13 @@ export default function RevelineLanding() {
     >
      {social.img ? (
   <img src={social.img} alt="social" className="w-full h-full object-contain" />
-) : Icon ? (
-  <Icon size={28} />
-) : null}
+  ) : (
+        IconComponent && <IconComponent size={28} />
+      )}
     </motion.a>
   );
 })}
+
                   </div>
               </div>
 <div className="bg-[#152446] p-10 rounded-3xl border border-[#33627F]/30">
