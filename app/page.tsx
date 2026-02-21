@@ -7,7 +7,13 @@ import {
   Zap, RefreshCw, Users, ShieldCheck, ArrowRight, Globe,
   Sword, Wind, Layers, Trophy, Youtube, Linkedin, Facebook, Instagram 
 } from 'lucide-react';
+import type { LucideIcon } from "lucide-react";
 
+type Social = {
+  icon?: LucideIcon;
+  img?: string;
+  url: string;
+};
 export default function RevelineLanding() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -31,7 +37,7 @@ export default function RevelineLanding() {
     '/Assets/CODE.png', '/Assets/MCIT_logo.png', '/Assets/NTDP.png', '/Assets/SGC.png', '/Assets/GameBootCamp Logo.jpg'
   ];
 
-  const socialIcons = [
+ const socialIcons: Social[] = [
     { icon: Linkedin, url: 'https://www.linkedin.com/company/reveline-studio' },
     { img: '/Assets/X.png', url: 'https://x.com/reveline_studio' },
     { img: '/Assets/ItchIo.png', url: 'https://reveline-studio.itch.io/' },
@@ -279,7 +285,7 @@ export default function RevelineLanding() {
 </div>
                   
                   <div className="flex flex-wrap gap-4 mt-16">
-{socialIcons.map((social: any, i: number) => {
+{socialIcons.map((social, i) => {
   const Icon = social.icon;
   return (
     <motion.a 
@@ -289,11 +295,11 @@ export default function RevelineLanding() {
       whileHover={{ scale: 1.1, y: -5 }} 
       className="w-12 h-12 p-3 bg-[#152446] border border-[#33627F]/50 rounded-xl flex items-center justify-center hover:border-[#FECD49] transition-all shadow-xl text-[#FFFFFF]"
     >
-      {social.img ? (
-        <img src={social.img} alt="social" className="w-full h-full object-contain" />
-      ) : (
-        Icon && <Icon size={28} />
-      )}
+     {social.img ? (
+  <img src={social.img} alt="social" className="w-full h-full object-contain" />
+) : Icon ? (
+  <Icon size={28} />
+) : null}
     </motion.a>
   );
 })}
