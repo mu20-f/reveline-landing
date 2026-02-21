@@ -279,19 +279,25 @@ export default function RevelineLanding() {
 </div>
                   
                   <div className="flex flex-wrap gap-4 mt-16">
-                      {socialIcons.map((social, i) => (
-                          <motion.a 
-                            key={i} href={social.url} target="_blank" 
-                            whileHover={{ scale: 1.1, y: -5 }} 
-                            className="w-15 h-15 p-4 bg-[#152446] border border-[#33627F]/50 rounded-xl flex items-center justify-center hover:border-[#FECD49] transition-all shadow-xl text-[#FFFFFF]"
-                          >
-                              {social.img ? (
-                                <img src={social.img} alt="social" className="w-full h-full object-contain" />
-                              ) : (
-                                <social.icon size={28} />
-                              )}
-                          </motion.a>
-                      ))}
+{socialIcons.map((social, i) => {
+  const IconComponent = social.icon; 
+  
+  return (
+    <motion.a 
+      key={i} 
+      href={social.url} 
+      target="_blank" 
+      whileHover={{ scale: 1.1, y: -5 }} 
+      className="w-12 h-12 p-3 bg-[#152446] border border-[#33627F]/50 rounded-xl flex items-center justify-center hover:border-[#FECD49] transition-all shadow-xl text-[#FFFFFF]"
+    >
+      {social.img ? (
+        <img src={social.img} alt="social" className="w-full h-full object-contain" />
+      ) : (
+        IconComponent && <IconComponent size={24} />
+      )}
+    </motion.a>
+  );
+})}
                   </div>
               </div>
 <div className="bg-[#152446] p-10 rounded-3xl border border-[#33627F]/30">
