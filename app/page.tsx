@@ -279,9 +279,8 @@ export default function RevelineLanding() {
 </div>
                   
                   <div className="flex flex-wrap gap-4 mt-16">
-{socialIcons.map((social, i) => {
-  const IconComponent = social.icon; 
-  
+{socialIcons.map((social: any, i: number) => {
+  const Icon = social.icon;
   return (
     <motion.a 
       key={i} 
@@ -293,7 +292,7 @@ export default function RevelineLanding() {
       {social.img ? (
         <img src={social.img} alt="social" className="w-full h-full object-contain" />
       ) : (
-        IconComponent && <IconComponent size={24} />
+        Icon && <Icon size={28} />
       )}
     </motion.a>
   );
