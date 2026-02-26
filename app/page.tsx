@@ -42,9 +42,9 @@ export default function RevelineLanding() {
     { img: '/Assets/X.png', url: 'https://x.com/reveline_studio' },
     { img: '/Assets/ItchIo.png', url: 'https://reveline-studio.itch.io/' },
     { icon: Youtube, url: 'https://www.youtube.com/@RevelineStudio' },
-    { img: '/Assets/discord.png', url: 'https://discord.gg/3AgXtPst' },
-    { icon: Facebook, url: 'https://www.facebook.com/reveline-studio' },
-    { icon: Instagram, url: 'https://www.instgram.com/reveline-studio' },
+    { img: '/Assets/discord.png', url: 'https://discord.gg/y8K7BR8u4n' },
+    { icon: Facebook, url: 'https://www.facebook.com/Revelinestudio25' },
+    { icon: Instagram, url: 'https://www.instagram.com/reveline.studio' },
     { img: '/Assets/Steam.png', url: 'https://www.Steam.com/reveline-studio' },
 
   ];
@@ -178,12 +178,19 @@ export default function RevelineLanding() {
                 ))}
               </div>
 
-              <motion.button 
-                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(254,205,73,0.4)" }}
-                className="px-10 py-5 bg-[#FECD49] text-[#152446] font-bold uppercase tracking-widest text-lg flex items-center gap-4 group"
-              >
-                TRY THE GAME ON ITCH.IO <ArrowRight className="group-hover:translate-x-2 transition-transform" />
-              </motion.button>
+<motion.a
+  href="https://reveline-studio.itch.io/voidstrike"
+  target="_blank"
+  rel="noopener noreferrer"
+  whileHover={{ 
+    scale: 1.05, 
+    boxShadow: "0 0 20px rgba(254,205,73,0.4)" 
+  }}
+  className="px-10 py-5 bg-[#FECD49] text-[#152446] font-bold uppercase tracking-widest text-lg flex items-center gap-4 group"
+>
+  TRY THE GAME ON ITCH.IO 
+  <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+</motion.a>
             </motion.div>
             
 <div className="space-y-6">
@@ -313,7 +320,6 @@ const IconComponent = social.icon;
       setFormStatus("SENDING...");
       
       const formData = new FormData(e.currentTarget);
-      // المفتاح الخاص بك
       formData.append("access_key", "6aeaea8c-bcbe-4cb0-ac88-6eb02a193631");
 
       try {
@@ -326,7 +332,7 @@ const IconComponent = social.icon;
 
         if (data.success) {
           setFormStatus("SIGNAL RECEIVED!");
-          (e.target as HTMLFormElement).reset(); // لتفريغ الحقول بعد الإرسال
+          (e.target as HTMLFormElement).reset(); 
         } else {
           setFormStatus("ERROR! TRY AGAIN.");
         }
